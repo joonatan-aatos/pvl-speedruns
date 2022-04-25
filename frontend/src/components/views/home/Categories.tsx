@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import CreateNewCategoryModal from "../../modals/CreateNewCategoryModal";
 import Box from "../../util/Box";
 
 const CategoriesWrapper = styled.div`
@@ -49,36 +51,59 @@ const CategoryName = styled.p`
 `;
 
 const Categories = () => {
-  const categories = [
-    "Peltolenkki any %",
-    "0,5 L Solaa any %",
-    "Ylppärit any %",
-    "Käntyn syönti any %",
-    "Peltolenkki any %",
-    "0,5 L Solaa any %",
-    "Ylppärit any %",
-    "Käntyn syönti any %",
-    "Peltolenkki any %",
-    "0,5 L Solaa any %",
-    "Ylppärit any %",
-    "Käntyn syönti any %",
-  ];
+  const [categories, setCategories] = useState<Array<any>>([]);
+  const [createNewCategoryModalVisible, setCreateNewCategoryModalVisible] =
+    useState<boolean>(false);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/categories")
+      .then((res) => res.json())
+      .then((data) => setCategories(data));
+  }, []);
 
   return (
     <CategoriesWrapper>
+      {createNewCategoryModalVisible && (
+        <CreateNewCategoryModal
+          onSubmit={(data: any) => {
+            fetch("http://localhost:5000/categories", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                name: data.nimi || "",
+                description: data.kuvaus || "",
+              }),
+            })
+              .then((res) => res.json())
+              .then((data) => setCategories([...categories, data]));
+            setCreateNewCategoryModalVisible(false);
+          }}
+          onCancel={() => {
+            setCreateNewCategoryModalVisible(false);
+          }}
+        />
+      )}
       <HeaderContainer>
         <CategoryContainer>
           <Box>
-            <CategoryName>Luo uusi kategoria</CategoryName>
+            <CategoryName
+              onClick={() =>
+                setCreateNewCategoryModalVisible(!createNewCategoryModalVisible)
+              }
+            >
+              Luo uusi kategoria
+            </CategoryName>
           </Box>
         </CategoryContainer>
       </HeaderContainer>
       <Devider />
       <CategoriesContainer>
         {categories.map((category) => (
-          <CategoryContainer>
+          <CategoryContainer key={category.categoryId}>
             <Box>
-              <CategoryName>{category}</CategoryName>
+              <CategoryName>{category.name}</CategoryName>
             </Box>
           </CategoryContainer>
         ))}
