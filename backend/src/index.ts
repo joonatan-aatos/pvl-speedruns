@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express";
 import { connect } from "./utils/prismaClient";
 
@@ -5,9 +6,10 @@ import categoriesRouter from "./routers/categories";
 import runsRouter from "./routers/runs";
 
 const app = express();
-const port = parseInt(process.env.PORT as string) | 8080;
+const port = parseInt(process.env.PORT as string) || 8080;
 
 app.use(express.json());
+app.use(cors());
 
 app.use("/categories", categoriesRouter);
 app.use("/runs", runsRouter);

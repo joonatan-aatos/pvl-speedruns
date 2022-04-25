@@ -3,9 +3,9 @@ import Box from "../util/Box";
 import Logo from "../../img/pvlspeedrunslogo.png"
 
 const BoxContainer = styled.div`
-  width: 300px;
+  width: 25%;
   height: 100%;
-  margin: 50px;
+  margin-top: 50px;
 `;
 
 const LogoImg = styled.img`
