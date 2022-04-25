@@ -22,6 +22,7 @@ const GlobalStyles = createGlobalStyle`
     --large-text: 35px;
     --medium-text: 25px;
     --small-text: 20px;
+    --very-small-text: 15px;
 
     padding: 0;
     overflow: hidden;
