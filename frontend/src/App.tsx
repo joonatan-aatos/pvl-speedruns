@@ -1,7 +1,12 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import CategoryView from "./components/views/category/CategoryView";
 import HomeView from "./components/views/home/HomeView";
+import { setCategories } from "./redux/categories";
+import { getCategories } from "./redux/categories/actions";
+import { getRuns } from "./redux/runs/actions";
 
 const AppWrapper = styled.div`
   width: 100vw;
@@ -39,7 +44,14 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-function App() {
+const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCategories());
+    dispatch(getRuns());
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <AppWrapper>
@@ -52,6 +64,6 @@ function App() {
       </AppWrapper>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

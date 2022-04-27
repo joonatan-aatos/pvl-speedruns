@@ -1,5 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { RootState } from "../../../redux/store";
 import CreateNewCategoryModal from "../../modals/CreateNewCategoryModal";
 import Box from "../../util/Box";
 
@@ -51,21 +54,18 @@ const CategoryName = styled.p`
 `;
 
 const Categories = () => {
-  const [categories, setCategories] = useState<Array<any>>([]);
+  const categories = useSelector(
+    (state: RootState) => state.categories.categories
+  );
   const [createNewCategoryModalVisible, setCreateNewCategoryModalVisible] =
     useState<boolean>(false);
-
-  useEffect(() => {
-    fetch("http://localhost:5000/categories")
-      .then((res) => res.json())
-      .then((data) => setCategories(data));
-  }, []);
 
   return (
     <CategoriesWrapper>
       {createNewCategoryModalVisible && (
         <CreateNewCategoryModal
           onSubmit={(data: any) => {
+            /*
             fetch("http://localhost:5000/categories", {
               method: "POST",
               headers: {
@@ -78,6 +78,7 @@ const Categories = () => {
             })
               .then((res) => res.json())
               .then((data) => setCategories([...categories, data]));
+            */
             setCreateNewCategoryModalVisible(false);
           }}
           onCancel={() => {
@@ -100,11 +101,16 @@ const Categories = () => {
       </HeaderContainer>
       <Devider />
       <CategoriesContainer>
-        {categories.map((category) => (
+        {categories?.map((category) => (
           <CategoryContainer key={category.categoryId}>
-            <Box>
-              <CategoryName>{category.name}</CategoryName>
-            </Box>
+            <Link
+              to={`/category/${category.categoryId}`}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <Box>
+                <CategoryName>{category.name}</CategoryName>
+              </Box>
+            </Link>
           </CategoryContainer>
         ))}
       </CategoriesContainer>
