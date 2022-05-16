@@ -1,15 +1,12 @@
 import styled from "styled-components";
 import Box from "../util/Box";
-import Logo from "../../img/pvlspeedrunslogo.png"
+import Logo from "../../img/pvlspeedrunslogo.png";
+import { Link } from "react-router-dom";
 
 const BoxContainer = styled.div`
   width: 25%;
-  height: 100%;
+  height: calc(100%);
   margin-top: 50px;
-`;
-
-const LogoImg = styled.img`
-  align-self: center;
 `;
 
 const LogoContainer = styled.div`
@@ -22,7 +19,7 @@ const LogoContainer = styled.div`
 
 const TextContainer = styled.div`
   padding-left: 10%;
-  overflow: auto;
+  overflow: hidden;
 `;
 
 const Title = styled.h1`
@@ -31,7 +28,7 @@ const Title = styled.h1`
   margin-top: 10%;
 `;
 
-const Link = styled.a`
+const StyledLink = styled.a`
   font-size: var(--very-small-text);
 `;
 
@@ -50,16 +47,20 @@ const Description = styled.p`
 const LeftSide = () => {
   return (
     <BoxContainer>
-      <Box>
+      <Box scrollable>
         <>
           <LogoContainer>
-            <LogoImg src={Logo} width={"80%"}/>
+            <Link to={"/home"} style={{ alignSelf: "center", width: "80%" }}>
+              <img src={Logo} width={"100%"} alt="" />
+            </Link>
           </LogoContainer>
           <TextContainer>
             <Title>Päivölä:</Title>
-            <Link href="https://paivola.fi/">https://paivola.fi/</Link>
+            <StyledLink href="https://paivola.fi/">
+              https://paivola.fi/
+            </StyledLink>
             <Title>PSIL:</Title>
-            <Link href="https://psil.fi/">https://psil.fi/</Link>
+            <StyledLink href="https://psil.fi/">https://psil.fi/</StyledLink>
             <Title>Tekijät:</Title>
             <NameList>
               <Name>Joonatan (Zetat)</Name>

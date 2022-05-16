@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import CategoryView from "./components/views/category/CategoryView";
 import HomeView from "./components/views/home/HomeView";
-import { setCategories } from "./redux/categories";
 import { getCategories } from "./redux/categories/actions";
 import { getRuns } from "./redux/runs/actions";
 

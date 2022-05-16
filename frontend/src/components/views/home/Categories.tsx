@@ -6,14 +6,6 @@ import { RootState } from "../../../redux/store";
 import CreateNewCategoryModal from "../../modals/CreateNewCategoryModal";
 import Box from "../../util/Box";
 
-const CategoriesWrapper = styled.div`
-  width: 55%;
-  height: 100%;
-  margin-top: 50px;
-  padding: 30px;
-  background-color: var(--background-light);
-`;
-
 const HeaderContainer = styled.div`
   height: fit-content;
   width: 100%;
@@ -61,7 +53,7 @@ const Categories = () => {
     useState<boolean>(false);
 
   return (
-    <CategoriesWrapper>
+    <>
       {createNewCategoryModalVisible && (
         <CreateNewCategoryModal
           onSubmit={(data: any) => {
@@ -114,7 +106,7 @@ const Categories = () => {
           </CategoryContainer>
         ))}
       </CategoriesContainer>
-    </CategoriesWrapper>
+    </>
   );
 };
 
