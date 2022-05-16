@@ -48,7 +48,7 @@ const CreateNewCategoryModal = (props: CreateNewCategoryModalProps) => {
   const [password, setPassword] = useState<string>("");
 
   return (
-    <Modal>
+    <Modal onClose={props.onCancel}>
       <NewCategoryModalContentContainer>
         {fields
           .map((field) => field.toLowerCase())

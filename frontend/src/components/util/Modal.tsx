@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 interface ModalProps {
   children: ReactChild;
+  onClose: () => void;
 }
 
 const Background = styled.div`
@@ -24,8 +25,10 @@ const ModalContainer = styled.div`
 
 const Modal = (props: ModalProps) => {
   return (
-    <Background>
-      <ModalContainer>{props.children}</ModalContainer>
+    <Background onClick={(e) => props.onClose()}>
+      <ModalContainer onClick={(e) => e.stopPropagation()}>
+        {props.children}
+      </ModalContainer>
     </Background>
   );
 };
