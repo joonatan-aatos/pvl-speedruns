@@ -15,7 +15,9 @@ categoriesRouter.get("/", async (_req: any, res: any) => {
 
 categoriesRouter.post("/", async (req, res) => {
   try {
-    const category = await prismaClient.category.create({ data: req.body });
+    const category = await prismaClient.category.create({
+      data: req.body.data,
+    });
     res.json(category);
   } catch (e: any) {
     console.error(e);

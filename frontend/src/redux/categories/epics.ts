@@ -1,8 +1,13 @@
 import { map, mergeMap, Observable } from "rxjs";
-import { GetCategoriesAction, GET_CATEGORIES } from "./types";
+import {
+  AddCategoryAction,
+  ADD_CATEGORY,
+  GetCategoriesAction,
+  GET_CATEGORIES,
+} from "./types";
 import { ofType } from "redux-observable";
 import api from "../../util/api";
-import { setCategories } from ".";
+import { addCategory, setCategories } from ".";
 
 const getCategoriesEpic = (
   action$: Observable<GetCategoriesAction>
@@ -18,4 +23,18 @@ const getCategoriesEpic = (
     )
   );
 
-export const categoryEpics = [getCategoriesEpic];
+const addCategoryEpic = (
+  action$: Observable<AddCategoryAction>
+): Observable<any> =>
+  action$.pipe(
+    ofType(ADD_CATEGORY),
+    mergeMap((payload) =>
+      api.post("categories", payload.payload).pipe(
+        map((res) => {
+          return addCategory(res);
+        })
+      )
+    )
+  );
+
+export const categoryEpics = [getCategoriesEpic, addCategoryEpic];

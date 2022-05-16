@@ -15,7 +15,7 @@ runsRouter.get("/", async (_req: any, res: any) => {
 
 runsRouter.post("/", async (req, res) => {
   try {
-    const run = await prismaClient.category.create({ data: req.body });
+    const run = await prismaClient.category.create({ data: req.body.data });
     res.json(run);
   } catch (e: any) {
     console.error(e);

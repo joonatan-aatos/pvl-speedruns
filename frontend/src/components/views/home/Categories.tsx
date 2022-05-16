@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { addCategory } from "../../../redux/categories/actions";
 import { RootState } from "../../../redux/store";
 import CreateNewCategoryModal from "../../modals/CreateNewCategoryModal";
 import Box from "../../util/Box";
@@ -46,6 +47,7 @@ const CategoryName = styled.p`
 `;
 
 const Categories = () => {
+  const dispatch = useDispatch();
   const categories = useSelector(
     (state: RootState) => state.categories.categories
   );
@@ -57,20 +59,7 @@ const Categories = () => {
       {createNewCategoryModalVisible && (
         <CreateNewCategoryModal
           onSubmit={(data: any) => {
-            /*
-            fetch("http://localhost:5000/categories", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                name: data.nimi || "",
-                description: data.kuvaus || "",
-              }),
-            })
-              .then((res) => res.json())
-              .then((data) => setCategories([...categories, data]));
-            */
+            dispatch(addCategory(data.nimi || "", data.kuvaus || "", ""));
             setCreateNewCategoryModalVisible(false);
           }}
           onCancel={() => {
