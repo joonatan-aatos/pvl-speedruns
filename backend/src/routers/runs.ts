@@ -5,7 +5,7 @@ const runsRouter = express.Router();
 
 runsRouter.get("/", async (_req: any, res: any) => {
   try {
-    const runs = await prismaClient.category.findMany();
+    const runs = await prismaClient.run.findMany();
     res.send(runs);
   } catch (e: any) {
     console.error(e);
@@ -15,7 +15,7 @@ runsRouter.get("/", async (_req: any, res: any) => {
 
 runsRouter.post("/", async (req, res) => {
   try {
-    const run = await prismaClient.category.create({ data: req.body.data });
+    const run = await prismaClient.run.create({ data: req.body.data });
     res.json(run);
   } catch (e: any) {
     console.error(e);
@@ -25,7 +25,7 @@ runsRouter.post("/", async (req, res) => {
 
 runsRouter.put("/", async (req, res) => {
   try {
-    await prismaClient.category.update(req.body);
+    await prismaClient.run.update(req.body);
     res.end();
   } catch (e: any) {
     console.error(e);
@@ -35,7 +35,7 @@ runsRouter.put("/", async (req, res) => {
 
 runsRouter.delete("/", async (req, res) => {
   try {
-    await prismaClient.category.delete(req.body);
+    await prismaClient.run.delete(req.body);
     res.end();
   } catch (e: any) {
     console.error(e);

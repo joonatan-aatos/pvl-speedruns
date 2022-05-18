@@ -2,8 +2,9 @@ import { useState } from "react";
 import styled from "styled-components";
 import Modal from "../util/Modal";
 
-interface CreateNewCategoryModalProps {
-  onSubmit: (data: any) => void;
+interface GeneralModalProps {
+  fields: Array<string>;
+  onSubmit: (data: any, password: string) => void;
   onCancel: () => void;
 }
 
@@ -42,26 +43,24 @@ const ControlButton = styled.button<{ red?: boolean }>`
   }
 `;
 
-const CreateNewCategoryModal = (props: CreateNewCategoryModalProps) => {
-  const fields = ["Nimi", "Kuvaus"];
+const GeneralModal = (props: GeneralModalProps) => {
+  const fields = props.fields;
   const [fieldsContent, setFieldsContent] = useState<any>({});
   const [password, setPassword] = useState<string>("");
 
   return (
     <Modal onClose={props.onCancel}>
       <NewCategoryModalContentContainer>
-        {fields
-          .map((field) => field.toLowerCase())
-          .map((field) => (
-            <TextField
-              key={field}
-              placeholder={field}
-              value={fieldsContent[field] || ""}
-              onChange={(e) =>
-                setFieldsContent({ ...fieldsContent, [field]: e.target.value })
-              }
-            />
-          ))}
+        {fields.map((field) => (
+          <TextField
+            key={field}
+            placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+            value={fieldsContent[field] || ""}
+            onChange={(e) =>
+              setFieldsContent({ ...fieldsContent, [field]: e.target.value })
+            }
+          />
+        ))}
         <TextField
           type="password"
           placeholder="Salasana"
@@ -73,7 +72,7 @@ const CreateNewCategoryModal = (props: CreateNewCategoryModalProps) => {
             Kumoa
           </ControlButton>
           <ControlButton
-            onClick={() => props.onSubmit({ ...fieldsContent, password })}
+            onClick={() => props.onSubmit(fieldsContent, password)}
           >
             Valmis
           </ControlButton>
@@ -83,4 +82,4 @@ const CreateNewCategoryModal = (props: CreateNewCategoryModalProps) => {
   );
 };
 
-export default CreateNewCategoryModal;
+export default GeneralModal;

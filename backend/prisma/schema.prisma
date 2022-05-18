@@ -19,12 +19,12 @@ model Category {
 }
 
 model Run {
-  runId      String    @id @default(uuid())
-  category   Category? @relation(fields: [categoryId], references: [categoryId])
-  categoryId String?
+  runId      String   @id @default(uuid())
+  category   Category @relation(fields: [categoryId], references: [categoryId])
+  categoryId String
 
   runnerName String
-  videoLink  String
+  proof      String
   date       DateTime
   time       Int // In milliseconds
   days       Int

@@ -1,4 +1,5 @@
 import { Action } from "redux";
+import { Run } from "../runs/types";
 
 export const GET_CATEGORIES = "category:GET_CATEGORIES";
 export const ADD_CATEGORY = "category:ADD_CATEGORY";
@@ -22,7 +23,7 @@ export interface Category {
   categoryId: string;
   name: string;
   description: string;
-  runs: Array<any>;
+  runs: Array<Run>;
 }
 
 export interface CategoriesState {

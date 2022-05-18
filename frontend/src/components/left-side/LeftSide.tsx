@@ -47,7 +47,7 @@ const Description = styled.p`
 const LeftSide = () => {
   return (
     <BoxContainer>
-      <Box scrollable>
+      <Box scrollable width="100%" height="100%">
         <>
           <LogoContainer>
             <Link to={"/home"} style={{ alignSelf: "center", width: "80%" }}>

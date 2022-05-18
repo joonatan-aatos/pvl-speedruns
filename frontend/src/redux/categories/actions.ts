@@ -10,16 +10,15 @@ export const getCategories = (): GetCategoriesAction => ({
 });
 
 export const addCategory = (
-  name: string,
-  description: string,
+  data: {
+    name: string;
+    description: string;
+  },
   password: string
 ): AddCategoryAction => ({
   type: ADD_CATEGORY,
   payload: {
-    data: {
-      name,
-      description,
-    },
+    data,
     password,
   },
 });

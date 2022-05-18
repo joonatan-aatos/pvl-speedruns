@@ -29,8 +29,8 @@ const TopBar = styled.div`
 const Box = (props: BoxProps) => {
   return (
     <BoxContainer
-      width={props.width || "100%"}
-      height={props.height || "100%"}
+      width={props.width || "fit-content"}
+      height={props.height || "fit-content"}
       scrollable={props.scrollable || false}
     >
       <TopBar />
