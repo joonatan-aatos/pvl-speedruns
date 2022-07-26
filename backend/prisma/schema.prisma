@@ -1,0 +1,31 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  categoryId String @id @default(uuid())
+
+  name        String
+  description String
+  runs        Run[]
+}
+
+model Run {
+  runId      String   @id @default(uuid())
+  category   Category @relation(fields: [categoryId], references: [categoryId])
+  categoryId String
+
+  runnerName String
+  proof      String
+  date       DateTime
+  time       Int // In milliseconds
+  days       Int
+}
